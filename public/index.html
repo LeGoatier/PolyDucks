@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Website</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Welcome to My Website</h1>
+        <div id="map"></div>
+        <script async>
+
+
+            function initMap() {
+
+                var heatMapData = [
+                    { location: new google.maps.LatLng(37.782, -122.447), weight: 0.5 },
+                    new google.maps.LatLng(37.782, -122.445),
+                    { location: new google.maps.LatLng(37.782, -122.443), weight: 2 },
+                    { location: new google.maps.LatLng(37.782, -122.441), weight: 3 },
+                    { location: new google.maps.LatLng(37.782, -122.439), weight: 2 },
+                    new google.maps.LatLng(37.782, -122.437),
+                    { location: new google.maps.LatLng(37.782, -122.435), weight: 0.5 },
+
+                    { location: new google.maps.LatLng(37.785, -122.447), weight: 3 },
+                    { location: new google.maps.LatLng(37.785, -122.445), weight: 2 },
+                    new google.maps.LatLng(37.785, -122.443),
+                    { location: new google.maps.LatLng(37.785, -122.441), weight: 0.5 },
+                    new google.maps.LatLng(37.785, -122.439),
+                    { location: new google.maps.LatLng(37.785, -122.437), weight: 2 },
+                    { location: new google.maps.LatLng(37.785, -122.435), weight: 3 }
+                ];
+
+                var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: sanFrancisco,
+                    zoom: 13,
+                    mapTypeId: 'satellite'
+                });
+
+                var heatmap = new google.maps.visualization.HeatmapLayer({
+                    data: heatMapData
+                });
+                heatmap.setMap(map);
+
+            }
+
+
+
+            // Fetch the Google Maps API key from the backend
+            async function loadGoogleMapsAPI() {
+                const response = await fetch('/api/config');
+                const data = await response.json();
+                const apiKey = data.googleMapsApiKey;
+
+                // Dynamically load the Google Maps JavaScript API with the fetched API key
+                const script = document.createElement("script");
+                script.src = script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&libraries=visualization&callback=initMap`;;
+                script.async = true;
+                script.defer = true;
+                document.body.appendChild(script);
+            }
+
+            // Load the API key and Google Maps script
+            loadGoogleMapsAPI();
+
+        </script>
+
+    </main>
+</body>
+
+</html>
