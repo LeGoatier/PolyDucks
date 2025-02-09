@@ -73,7 +73,7 @@ body {
     opacity: 0;
     display: none;
     transition: opacity 0.2s;
-    z-index: -1;
+    z-index: 1;
 }
 
 .menu li {
@@ -84,7 +84,7 @@ body {
 }
 
 .menu li:hover {
-    background: #f0f0f0;
+    background: #2a2D35;
 }
 
 .active {
