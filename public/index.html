@@ -39,8 +39,15 @@
                 console.log(new google.maps.LatLng(37.782, -122.441));
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: new google.maps.LatLng(0, 0),
-                    zoom: 3,
-                    mapTypeId: 'satellite'
+                    zoom: 1.8,
+                    mapTypeId: 'satellite',
+                    zoomControl: false,
+                    cameraControl: false,
+                    streetViewControl: false,
+                    rotateControl: false,
+                    fullscreenControl: false,
+                    gestureHandling: "none"
+
                 });
 
                 heatMap = new google.maps.visualization.HeatmapLayer({
@@ -52,7 +59,7 @@
 
             function draw(_heatmapdata) {
                 // Update the heatmap data
-                heatMap.setData(_heatmapdata);  // Use the setData method to update the heatmap
+               heatMap.setData(_heatmapdata);  // Use the setData method to update the heatmap
             }
 
 
@@ -78,7 +85,7 @@
         <script src="dropdown.js"></script>
         <script src="slider.js"></script>
         <script>
-            draw(_year, fetchData(_year, getType()));
+            draw(await (fetchData(_year, getType())));
         </script>
     </main>
 </body>

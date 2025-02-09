@@ -33,12 +33,18 @@ dropdowns.forEach(dropdown => {
 
             // Add active class to the selected option
             option.classList.add('active');
-            var data = fetchData(_year, getType());
-            draw(data);
+            updatemap()
 
         });
     });
 });
+
+async function updatemap() {
+
+     var data = await fetchData(_year, getType());
+            draw(data);
+}      
+
 
 function getType(){
     return document.querySelector('.selected').innerText;
