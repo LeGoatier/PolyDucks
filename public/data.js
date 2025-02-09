@@ -1,5 +1,9 @@
 
-var data = JSON.parse(fs.readFileSync())
+var data = JSON.parse(fetch("localization.json"));
+
+console.log(data.Update2024.)
+
+
 
 
 
