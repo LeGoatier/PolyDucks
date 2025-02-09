@@ -27,42 +27,27 @@
                     <li class="">p25_concentration</li>
                     <li class="active">no2_concentration</li>
                 </ul>
+                <p class="desc">Dioxyde d'azote. Sources : trafic routier, centrales thermiques. Effets : irritation des voies respiratoires, asthme.</p>
             </div>
         </div>
         <div id="map" style="float:left"></div>
         <script async>
-            
             let heatMap = {};
             let map = {};
-
             function initMap() {
-                console.log(new google.maps.LatLng(37.782, -122.441));
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: new google.maps.LatLng(0, 0),
-                    zoom: 1.8,
-                    mapTypeId: 'satellite',
-                    zoomControl: false,
-                    cameraControl: false,
-                    streetViewControl: false,
-                    rotateControl: false,
-                    fullscreenControl: false,
-                    gestureHandling: "none"
-
+                    zoom: 3,
+                    mapTypeId: 'satellite'
                 });
-
-                heatMap = new google.maps.visualization.HeatmapLayer({
-                    data: []  // Initially setting empty data
-                });
-
-                heatMap.setMap(map);  // Attach heatmap layer to the map
+                heatMap = new google.maps.visualization.HeatmapLayer({});
+                heatMap.setMap(map);
             }
-
-            function draw(_heatmapdata) {
-                // Update the heatmap data
-               heatMap.setData(_heatmapdata);  // Use the setData method to update the heatmap
+            function draw(_heatmapdata){
+                heatMap.data = _heatmapdata
+                
             }
-
-
+            
             // Fetch the Google Maps API key from the backend
             async function loadGoogleMapsAPI() {
                 const response = await fetch('/api/config');
@@ -85,7 +70,7 @@
         <script src="dropdown.js"></script>
         <script src="slider.js"></script>
         <script>
-            draw(await (fetchData(_year, getType())));
+            draw(_year, fetchData(_year, getType()));
         </script>
     </main>
 </body>

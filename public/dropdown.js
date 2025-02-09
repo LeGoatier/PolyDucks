@@ -33,6 +33,17 @@ dropdowns.forEach(dropdown => {
 
             // Add active class to the selected option
             option.classList.add('active');
+            switch(option.innerText){
+                case 'p10_concentration':
+                    document.querySelector('.desc').innerText = 'Particules en suspension d\'un diamètre ≤ 10 µm. \nSources principales : poussières naturelles, industrie, transport. Effets : problèmes respiratoires, cardiovasculaires.';
+                    break;
+                case 'p25_concentration':
+                    document.querySelector('.desc').innerText = 'Particules fines d\'un diamètre ≤ 2.5 µm. Sources : combustion, industrie. \nEffets : pénètrent profondément dans les poumons, très dangereuses.';
+                    break;
+                default:
+                    document.querySelector('.desc').innerText = 'Dioxyde d\'azote. Sources : trafic routier, centrales thermiques. Effets : irritation des voies respiratoires, asthme.';
+                    break;
+            }
             updatemap()
 
         });
