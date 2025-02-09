@@ -1,4 +1,5 @@
 const dropdowns = document.querySelectorAll('.dropdown');
+var _year;
 
 dropdowns.forEach(dropdown => {
     const select = dropdown.querySelector('.select');
@@ -32,6 +33,13 @@ dropdowns.forEach(dropdown => {
 
             // Add active class to the selected option
             option.classList.add('active');
+            var data = fetchData(_year, getType());
+            draw(data);
+
         });
     });
 });
+
+function getType(){
+    return document.querySelector('.selected').innerText;
+}

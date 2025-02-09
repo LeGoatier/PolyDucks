@@ -15,62 +15,45 @@
         <div class="variables" style="float:right">
             <div class="slidecontainer">
                 <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-              </div>
-              <h3 id="year">what year</h3>
+            </div>
+            <h3 id="year">2010</h3>
             <div class="dropdown">
                 <div class="select">
-                    <span class="selected">variables</span>
+                    <span class="selected">no2_concentration</span>
                     <div class="caret"></div>
                 </div>
                 <ul class="menu">
-                    <li class="">var1</li>
-                    <li class="">var2</li>
-                    <li class="active">var3</li>
+                    <li class="">p10_concentration</li>
+                    <li class="">p25_concentration</li>
+                    <li class="active">no2_concentration</li>
                 </ul>
             </div>
         </div>
-        <script src="data.js"></script>
-        <script src="slider.js"></script>
-        <script src="dropdown.js"></script>
         <div id="map" style="float:left"></div>
         <script async>
-
+            
+            let heatMap = {};
+            let map = {};
 
             function initMap() {
-
-                var heatMapData = [
-                    { location: new google.maps.LatLng(37.782, -122.447), weight: 0.5 },
-                    new google.maps.LatLng(37.782, -122.445),
-                    { location: new google.maps.LatLng(37.782, -122.443), weight: 2 },
-                    { location: new google.maps.LatLng(37.782, -122.441), weight: 3 },
-                    { location: new google.maps.LatLng(37.782, -122.439), weight: 2 },
-                    new google.maps.LatLng(37.782, -122.437),
-                    { location: new google.maps.LatLng(37.782, -122.435), weight: 0.5 },
-
-                    { location: new google.maps.LatLng(37.785, -122.447), weight: 3 },
-                    { location: new google.maps.LatLng(37.785, -122.445), weight: 2 },
-                    new google.maps.LatLng(37.785, -122.443),
-                    { location: new google.maps.LatLng(37.785, -122.441), weight: 0.5 },
-                    new google.maps.LatLng(37.785, -122.439),
-                    { location: new google.maps.LatLng(37.785, -122.437), weight: 2 },
-                    { location: new google.maps.LatLng(37.785, -122.435), weight: 3 }
-                ];
-
-                var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
-
+                console.log(new google.maps.LatLng(37.782, -122.441));
                 map = new google.maps.Map(document.getElementById('map'), {
-                    center: sanFrancisco,
-                    zoom: 13,
+                    center: new google.maps.LatLng(0, 0),
+                    zoom: 3,
                     mapTypeId: 'satellite'
                 });
 
-                var heatmap = new google.maps.visualization.HeatmapLayer({
-                    data: heatMapData
+                heatMap = new google.maps.visualization.HeatmapLayer({
+                    data: []  // Initially setting empty data
                 });
-                heatmap.setMap(map);
 
+                heatMap.setMap(map);  // Attach heatmap layer to the map
             }
 
+            function draw(_heatmapdata) {
+                // Update the heatmap data
+                heatMap.setData(_heatmapdata);  // Use the setData method to update the heatmap
+            }
 
 
             // Fetch the Google Maps API key from the backend
@@ -91,7 +74,12 @@
             loadGoogleMapsAPI();
 
         </script>
-
+        <script src="data.js"></script>
+        <script src="dropdown.js"></script>
+        <script src="slider.js"></script>
+        <script>
+            draw(_year, fetchData(_year, getType()));
+        </script>
     </main>
 </body>
 
