@@ -12,18 +12,23 @@
 <body>
     <main>
         <h1>PolyPollution</h1>
-         
-        <div class="dropdown" style="float:right">
-            <div class="select">
-                <span class="selected">variables</span>
-                <div class="caret"></div>
+        <div class="variables" style="float:right">
+            <div class="slidecontainer">
+                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+              </div>
+            <div class="dropdown">
+                <div class="select">
+                    <span class="selected">variables</span>
+                    <div class="caret"></div>
+                </div>
+                <ul class="menu">
+                    <li class="">var1</li>
+                    <li class="">var2</li>
+                    <li class="active">var3</li>
+                </ul>
             </div>
-            <ul class="menu">
-                <li class="">var1</li>
-                <li class="">var2</li>
-                <li class="active">var3</li>
-            </ul>
         </div>
+        <script src="slider.js"></script>
         <script src="dropdown.js"></script>
         <div id="map" style="float:left"></div>
         <script async>
