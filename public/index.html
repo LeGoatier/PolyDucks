@@ -37,17 +37,24 @@
             function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: new google.maps.LatLng(0, 0),
-                    zoom: 3,
-                    mapTypeId: 'satellite'
+                    zoom: 1.8,
+                    mapTypeId: 'satellite',
+                    zoomControl: false,
+                    cameraControl: false,
+                    streetViewControl: false,
+                    rotateControl: false,
+                    fullscreenControl: false,
+                    gestureHandling: "none"
                 });
-                heatMap = new google.maps.visualization.HeatmapLayer({});
-                heatMap.setMap(map);
+                heatMap = new google.maps.visualization.HeatmapLayer({
+                    data: []  // Initially setting empty data
+                });
+                heatMap.setMap(map);  // Attach heatmap layer to the map
             }
-            function draw(_heatmapdata){
-                heatMap.data = _heatmapdata
-                
+            function draw(_heatmapdata) {
+                // Update the heatmap data
+               heatMap.setData(_heatmapdata);  // Use the setData method to update the heatmap
             }
-            
             // Fetch the Google Maps API key from the backend
             async function loadGoogleMapsAPI() {
                 const response = await fetch('/api/config');
@@ -56,7 +63,7 @@
 
                 // Dynamically load the Google Maps JavaScript API with the fetched API key
                 const script = document.createElement("script");
-                script.src = script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&libraries=visualization&callback=initMap`;;
+                script.src = script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&libraries=visualization&callback=initMap`;
                 script.async = true;
                 script.defer = true;
                 document.body.appendChild(script);
@@ -70,7 +77,7 @@
         <script src="dropdown.js"></script>
         <script src="slider.js"></script>
         <script>
-            draw(_year, fetchData(_year, getType()));
+            draw(await (fetchData(_year, getType())));
         </script>
     </main>
 </body>
