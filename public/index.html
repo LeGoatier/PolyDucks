@@ -5,21 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
     <title>My Website</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
 </head>
 
 <body>
     <main>
-        <h1>Welcome to My Website</h1>
-        <div id="map"></div>
+        <h1>PolyPollution</h1>
+         
+        <div class="dropdown" style="float:right">
+            <div class="select">
+                <span class="selected">variables</span>
+                <div class="caret"></div>
+            </div>
+            <ul class="menu">
+                <li class="active">var1</li>
+                <li>var2</li>
+                <li>var3</li>
+            </ul>
+        </div>
+        <script src="dropdown.js"></script>
+        <div id="map" style="float:left"></div>
         <script async>
 
 
